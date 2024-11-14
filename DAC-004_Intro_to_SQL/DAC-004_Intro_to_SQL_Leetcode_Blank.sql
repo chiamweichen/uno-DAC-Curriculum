@@ -42,6 +42,20 @@ col1 col2 col3
 
 -- Answer
 
+SELECT 
+n1.index AS start_index,
+n1.index + 1 AS next_index_1,
+n1.index + 2 AS next_index_2
+
+FROM
+	myownschema.numbers n1
+WHERE 
+	(n1.index + 1) IN (SELECT index FROM myownschema.numbers)
+	AND
+	(n1.index + 2) IN (SELECT index FROM myownschema.numbers)
+ORDER BY
+	n1.index;
+
 --------------------------------------------------------------------------------------------------------------------------------------------------
 
 -- Run these once!
@@ -62,10 +76,11 @@ FROM myownschema.stars;
 -- Q2: Form a triangle that has three rows, 3 stars at the top row and 1 star at the bottom row and rectangle with 3 rows and 2 columns using this table only.
 
 -- Rectangle Answer:
-
-
+SELECT repeat ('*',2) AS stars
+FROM generate_series (1,3);
 -- Triangle Answer: 
-
+SELECT repeat ('*', row) AS stars
+FROM generate_series(3,1,-1) AS row;
 
 --------------------------------------------------------------------------------------------------------------------------------------------------
 
